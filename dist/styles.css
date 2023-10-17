@@ -1,0 +1,21 @@
+
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    max-height: inherit;
+}
+
+html {
+    height: 100%;
+}
+
+body  {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+}
+
+nav {
+    display: flex;
+    align-content: center;
+    border-bottom: solid 1px rgba(0,0,0,0.1)
+}
