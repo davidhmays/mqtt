@@ -44,6 +44,7 @@ aside a {
 }
 
 aside header {
+    width: 100%;
     padding-bottom: 0;
 }
 
@@ -218,3 +219,7 @@ form {
 /* #lwt_qos_input {
     width: 10ch;
 } */
+
+.icon.check_circle {
+    margin-left: auto;
+}

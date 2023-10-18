@@ -44,6 +44,7 @@ const open_conn_button = document.querySelector("#open_connection");
 const add_sub_button = document.querySelector("#add_subscription");
 const connect_form = document.querySelector("#connect_form");
 const subscribe_form = document.querySelector("#subscribe_form");
+const checkmark = document.querySelector("#checkmark")
 
 const refresh_user = () => document.querySelector("#current_user").innerHTML = user
 const toggle_connect = () =>
@@ -79,10 +80,23 @@ refresh_user()
 
 client.on("connect", () =>
 {
+    if (checkmark.hasAttribute("hidden"))
+    {
+        checkmark.removeAttribute("hidden")
+    };
+
     //Post username to 
-    client.publish("participants", user)
-    client.subscribe("participants");
-    client.publish("participants", user)
+    client.publish("wi/participants", user)
+    client.subscribe("wi/participants");
+    client.publish("wi/participants", user)
+});
+
+client.on("disconnect", () =>
+{
+    if (!checkmark.hasAttribute("hidden"))
+    {
+        checkmark.setAttribute("hidden", "")
+    };
 });
 
 
