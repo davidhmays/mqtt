@@ -13,7 +13,9 @@
 
 console.log(mqtt);
 let url = "ws://broker.hivemq.com:8000/mqtt";
-let client_id = "clientId-54t4sP6pzs"
+let client_id = "clientId-54t4sP6pzs";
+const subscriptions = [];
+
 
 const client = mqtt.connect(url, {
     clientId: client_id
@@ -21,12 +23,11 @@ const client = mqtt.connect(url, {
 
 const client_id_input = document.querySelector("#client_id_input")
 client_id_input.setAttribute("value", client_id)
+client_id_input.addEventListener("input", function (event) { client_id = event.target.value })
 
 const url_input = document.querySelector("#url_input")
 url_input.setAttribute("value", url)
-
 url_input.addEventListener("input", function (event) { url = event.target.value })
-client_id_input.addEventListener("input", function (event) { client_id = event.target.value })
 
 const get_id_button = document.querySelector("#get_id")
 get_id_button.addEventListener("click", function () { window.open("https://www.hivemq.com/demos/websocket-client", "_blank") })
@@ -45,6 +46,7 @@ const add_sub_button = document.querySelector("#add_subscription");
 const connect_form = document.querySelector("#connect_form");
 const subscribe_form = document.querySelector("#subscribe_form");
 const checkmark = document.querySelector("#checkmark")
+// const disconnect_icon = document.querySelector("#disconnect")
 
 const refresh_user = () => document.querySelector("#current_user").innerHTML = user
 const toggle_connect = () =>
@@ -77,31 +79,64 @@ add_sub_button.addEventListener("click", toggle_subscribe);
 
 refresh_user()
 
+const subscribe = (topic) =>
+{
+    client.subscribe(topic, (err) =>
+    {
+        if (err)
+        {
+            alert('Error subscribing to the topic:', err);
+        } else
+        {
+            if (!subscriptions.includes(topic))
+            {
+                subscriptions.push(topic);
+            }
+
+            const dom_subscriptions = document.getElementById("sub_list")
+            const existing_sub = dom_subscriptions.querySelector(`li#${topic}`)
+
+            if (!existing_sub)
+            {
+                const dom_sub = document.createElement("li");
+                dom_sub.id = topic
+
+                const anchor = document.createElement("a");
+                anchor.href = "#";
+                anchor.textContent = topic
+
+                dom_sub.appendChild(anchor);
+                dom_subscriptions.appendChild(dom_sub);
+
+                // now close the subscribe box? no might want to add others.
+            }
+        }
+    });
+}
+
 
 client.on("connect", () =>
 {
+
     if (checkmark.hasAttribute("hidden"))
     {
         checkmark.removeAttribute("hidden")
     };
 
     //Post username to 
-    client.publish("wi/participants", user)
-    client.subscribe("wi/participants");
-    client.publish("wi/participants", user)
+    client.publish("participants", user)
+    subscribe("participants");
+    client.publish("participants", user)
 });
 
 client.on("disconnect", () =>
 {
+
     if (!checkmark.hasAttribute("hidden"))
     {
         checkmark.setAttribute("hidden", "")
     };
 });
-
-
-
-
 
 client.on("message", (topic, message) =>
 {
