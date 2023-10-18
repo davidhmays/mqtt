@@ -8,20 +8,22 @@
 
 console.log(mqtt);
 
-const url = ""
-const client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt", {
-    clientId: "clientId-YJtPRW8rcR"
+const url = "ws://broker.hivemq.com:8000/mqtt"
+const client = mqtt.connect(url, {
+    clientId: "clientId-54t4sP6pzs"
 });
 client.on("connect", () =>
 {
-    client.subscribe("presence", (err) =>
+    client.subscribe("presence2", (err) =>
     {
         if (!err)
         {
-            client.publish("presence", "Hello mqtt");
+            client.publish("presence2", "Hello mqtt");
         }
     });
 });
+
+
 client.on("message", (topic, message) =>
 {
     // message is Buffer
