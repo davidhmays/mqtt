@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <script src="../lib/mqtt.5.1.2.min.js"></script>
-    <script src="./main.js"></script>
+    <script type="module" src="./main.js" defer></script>
     <title>MQTT Tester</title>
 </head>
+
+<!---------------------------------------------------
+    YES this is all spaghetti. It's for testing... 
+----------------------------------------------------->
 
 <body>
     <aside>
@@ -23,7 +27,10 @@
                     <h2>Setup</h2>
                     <ul>
                         <li>
-                            <a href="#" onclick="toggle_form()">Connection</a>
+                            <a href="#" id="open_connection">Connect</a>
+                        </li>
+                        <li>
+                            <a href="#" id="add_subscription">Subscribe</a>
                         </li>
                     </ul>
                 </li>
@@ -38,22 +45,53 @@
     </aside>
 
     <div class="content">
-        <form action="" id="connect_form" class="card">
+        <form hidden action="" id="connect_form" class="card">
             <header>
-                <h1>Connecton</h1>
+                <h1>Connect</h1>
             </header>
 
             <div class="form_content">
-                <input type="text">
+                <div class="form_group">
+                    <label for="">URL</label>
+                    <input type="text" id="url_input">
+                </div>
 
-                <input type="text">
+                <div class="form_group">
+                    <label>Client id</label>
+                    <input type="text" id="client_id_input">
+                </div>
             </div>
 
 
             <footer>
+                <button class="secondary" id="get_id">Get client id</button>
+                <!-- <button class="secondary" id="disconnect">Disconnect</button> -->
                 <button>Connect</button>
             </footer>
         </form>
+
+        <form hidden action="" id="subscribe_form" class="card">
+            <header>
+                <h1>Subscribe</h1>
+            </header>
+
+            <div class="subscribe_form_content">
+                <div class="form_group">
+                    <label for="">Topic</label>
+                    <input type="text" id="topic_input">
+                </div>
+
+                <div class="form_group">
+                    <label>QoS Level</label>
+                    <input type="number" id="qos_input">
+                </div>
+            </div>
+
+            <footer>
+                <button>Subscribe</button>
+            </footer>
+        </form>
+
     </div>
 
 

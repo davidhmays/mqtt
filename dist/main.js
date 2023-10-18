@@ -5,31 +5,74 @@
 // If connecting to HiveMQ's test server, find a client ID here: https://www.hivemq.com/demos/websocket-client/
 // Can see overall here: https://www.mqtt-dashboard.com/
 
+
+///////////////////////////////////////////////////////////////
+//YES this is all spaghetti. It was made quickly for tesing..
+//////////////////////////////////////////////////////////////
+
+
 console.log(mqtt);
-const url = "ws://broker.hivemq.com:8000/mqtt";
+let url = "ws://broker.hivemq.com:8000/mqtt";
+let client_id = "clientId-54t4sP6pzs"
+
 const client = mqtt.connect(url, {
-    clientId: "clientId-54t4sP6pzs"
+    clientId: client_id
 });
+
+const client_id_input = document.querySelector("#client_id_input")
+client_id_input.setAttribute("value", client_id)
+
+const url_input = document.querySelector("#url_input")
+url_input.setAttribute("value", url)
+
+url_input.addEventListener("input", function (event) { url = event.target.value })
+client_id_input.addEventListener("input", function (event) { client_id = event.target.value })
+
+const get_id_button = document.querySelector("#get_id")
+get_id_button.addEventListener("click", function () { window.open("https://www.hivemq.com/demos/websocket-client", "_blank") })
 
 const generate_user = () =>
 {
     var a = ["Impatient", "Blue", "Ugly", "Friendly", "Sunny", "Quick", "Intelligent", "Curious", "Elegant", "Delightful", "Playful", "Vibrant", "Clever", "Lively", "Cozy", "Radiant", "Sparkling", "Adventurous", "Mysterious", "Peaceful"]
-    var b = ["Banana", "Penguin", "Rock", "Pickle", "Noodle", "Giraffe", "Squirrel", "Sock", "Llama", "Wombat", "Pancake", "Unicorn", "Pajamas", "Gummy Bear", "Taco", "Tire", "Lobster", "Pineapple", "Kangaroo", "Beluga"];
+    var b = ["Banana", "Penguin", "Rock", "Pickle", "Noodle", "Giraffe", "Squirrel", "Sock", "Llama", "Wombat", "Pancake", "Unicorn", "Pajamas", "Bear", "Taco", "Tire", "Lobster", "Pineapple", "Kangaroo", "Beluga"];
     var rA = Math.floor(Math.random() * a.length);
     var rB = Math.floor(Math.random() * b.length);
     return a[rA] + b[rB];
 }
 const user = generate_user();
+const open_conn_button = document.querySelector("#open_connection");
+const add_sub_button = document.querySelector("#add_subscription");
+const connect_form = document.querySelector("#connect_form");
+const subscribe_form = document.querySelector("#subscribe_form");
 
 const refresh_user = () => document.querySelector("#current_user").innerHTML = user
-const toggle_form = () =>
+const toggle_connect = () =>
 {
     if (connect_form.hasAttribute("hidden"))
     {
         connect_form.removeAttribute("hidden");
+        subscribe_form.setAttribute("hidden", "");
+    } else
+    {
+        connect_form.setAttribute("hidden", "")
     }
 }
 
+const toggle_subscribe = () =>
+{
+    if (subscribe_form.hasAttribute("hidden"))
+    {
+        subscribe_form.removeAttribute("hidden");
+        connect_form.setAttribute("hidden", "");
+    } else
+    {
+        subscribe_form.setAttribute("hidden", "")
+    }
+}
+
+
+open_conn_button.addEventListener("click", toggle_connect);
+add_sub_button.addEventListener("click", toggle_subscribe);
 
 refresh_user()
 
