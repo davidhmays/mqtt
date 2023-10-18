@@ -181,6 +181,10 @@ form {
     width: 32ch;
 }
 
+/* #url_input {
+    width: 100%;
+} */
+
 #qos_input {
     width: 12ch;
 }
@@ -198,3 +202,19 @@ form {
     flex-direction: row;
     gap: 16px;
 }
+
+/* #username_input {
+    width: 15ch;
+}
+
+#password_input {
+    width: 15ch;
+} */
+
+/* #lwt_message_input {
+    width: 17.5ch;
+} */
+
+/* #lwt_qos_input {
+    width: 10ch;
+} */
