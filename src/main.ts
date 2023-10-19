@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////
 
 
-console.log(mqtt);
+import * as mqtt from "../node_modules/mqtt"
 let url = "ws://broker.hivemq.com:8000/mqtt";
 let client_id = "clientId-54t4sP6pzs";
 let user_name = "";
@@ -21,10 +21,15 @@ const subscriptions = [];
 
 // let connect_packet = m
 
+const options: mqtt.IClientOptions = {
 
+}
+
+options.username = "myName"
 
 
 const client = mqtt.connect(url);
+
 
 
 

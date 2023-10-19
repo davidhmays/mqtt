@@ -8,5 +8,8 @@
     "clean": "rimraf dist/",
     "copy-files": "copyfiles -u 1 src/**/*.css src/**/*.html  dist",
     "build": "npm run clean && npm run copy-files && npx tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "mqtt": "^5.1.2"
   }
 }

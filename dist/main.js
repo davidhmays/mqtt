@@ -8,12 +8,14 @@
 ///////////////////////////////////////////////////////////////
 //YES this is all spaghetti. It was made quickly for tesing..
 //////////////////////////////////////////////////////////////
-console.log(mqtt);
+import * as mqtt from "../node_modules/mqtt";
 let url = "ws://broker.hivemq.com:8000/mqtt";
 let client_id = "clientId-54t4sP6pzs";
 let user_name = "";
 const subscriptions = [];
 // let connect_packet = m
+const options = {};
+options.username = "myName";
 const client = mqtt.connect(url);
 // const client = mqtt.connect(url, {
 //     clientId: client_id,
